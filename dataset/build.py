@@ -33,6 +33,32 @@ def read_df(cfg):
     data_df = get_baseline_week(data_df)
     data_df = get_baseline_FVC(data_df)
 
+    num_attribs = ['FVC', 'Percent', 'Age', 'baselined_week', 'base_FVC']
+    cat_attribs = ['Sex', 'SmokingStatus']
+
+    own_MinMaxColumnScaler(data_df, num_attribs)
+    own_OneHotColumnCreator(data_df, cat_attribs)
+
+    train_df = data_df.loc[data_df.Source == 'train']
+    sub = data_df.loc[data_df.Source == 'test']
+
+    return train_df, sub
+
+
+def own_MinMaxColumnScaler(df, columns):
+    """Adds columns with scaled numeric values to range [0, 1]
+    using the formula X_scld = (X - X.min) / (X.max - X.min)"""
+    for col in columns:
+        new_col_name = col + '_scld'
+        col_min = df[col].min()
+        col_max = df[col].max()        
+        df[new_col_name] = (df[col] - col_min) / ( col_max - col_min )
+
+def own_OneHotColumnCreator(df, columns):
+    """OneHot Encodes categorical features. Adds a column for each unique value per column"""
+    for col in columns:
+        for value in df[col].unique():
+            df[value] = (df[col] == value).astype(int)
 
 
 def get_baseline_week(df):

@@ -54,7 +54,7 @@ _C.INPUT.COTOUT_PROB = 0.4
 # -----------------------------------------------------------------------------
 _C.DATASETS = CN()
 # Root dir of dataset
-_C.DATASETS.ROOT_DIR = "/media/giorgio/54623CB9623CA2221/Kaggle/osic_fibrosis"
+_C.DATASETS.ROOT_DIR = "/home/giorgio/Desktop/Kaggle/osics_pulmonary_kaggle/data"
 # Fold to validate
 _C.DATASETS.N_FOLDS = 5
 # # List of the dataset names for training, as present in paths_catalog.py
